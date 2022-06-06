@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Игорь Ребрищев](https://up.htmlacademy.ru/javascript/26/user/1944511).
-* Наставник: `Неизвестно`.
+* Наставник: [Павел Нюкало](https://htmlacademy.ru/profile/nyukalopavel).
 
 ---
 
