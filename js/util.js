@@ -1,4 +1,4 @@
-import { advertisements } from './main.js';
+import { advertisements } from './data.js';
 
 /** Функция, возвращающая случайное целое число из переданного диапазона включительно
  * @param {number} a — первое число

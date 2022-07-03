@@ -16,7 +16,6 @@ const MAX_LAT = 35.70000;
 const MIN_LNG = 139.70000;
 const MAX_LNG = 139.80000;
 
-
 /** Функция, генерирует объект - объявление о аренде жилья
  * @return {object} — объект - объявление о аренде жилья
  */
@@ -48,4 +47,10 @@ function createAdvertisement () {
   };
 }
 
-export {createAdvertisement, AMOUNT_ADVERTISEMENTS};
+const advertisements = [];
+
+for (let i = 0; i < AMOUNT_ADVERTISEMENTS; i++) {
+  advertisements.push(createAdvertisement());
+}
+
+export {advertisements};
