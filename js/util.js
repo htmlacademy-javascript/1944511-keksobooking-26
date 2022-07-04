@@ -37,7 +37,7 @@ function getRandomArrayElement(elements) {
  * @param {number} amount — общее количество элементов
  * @return {string} — строка - адрес изображения
  */
-function createImageAdress (amount) {
+function createImageAdress(amount) {
   let imageNumber = getRandomPositiveInteger(1, amount);
   let strImageAdress = (imageNumber < 10) ? `img/avatars/user0${imageNumber}.png` : `img/avatars/user${imageNumber}.png`;
 
@@ -55,16 +55,31 @@ function createImageAdress (amount) {
  * @param {array} array — исходный массив значений
  * @return {array} — массив случайной длины
  */
-function createRandomArray (array) {
-  const randomArray = [];
-  const randomNumber = getRandomPositiveInteger(1, array.length);
-  for (let i = 0; i < randomNumber; i++) {
-    const randomArrayElement = getRandomArrayElement(array);
-    if (!randomArray.includes(randomArrayElement)) {
-      randomArray.push(randomArrayElement);
+function createRandomArray(array) {
+  if (array !== undefined) {
+    const randomArray = [];
+    const randomNumber = getRandomPositiveInteger(1, array.length);
+    for (let i = 0; i <= randomNumber; i++) {
+      const randomArrayElement = getRandomArrayElement(array);
+      if (!randomArray.includes(randomArrayElement)) {
+        randomArray.push(randomArrayElement);
+      }
     }
+    return randomArray;
+  } else {
+    return undefined;
   }
-  return randomArray;
 }
 
-export {getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement, createImageAdress, createRandomArray};
+/**  Функция, проверяет пустое ли свойство объекта
+ * @param property — свойство объекта
+ * @return {boolean} — true or false
+ */
+function isEmptyProperty (property) {
+  if (property === undefined) {
+    return true;
+  }
+  return false;
+}
+
+export { getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement, createImageAdress, createRandomArray, isEmptyProperty };

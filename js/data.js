@@ -1,9 +1,10 @@
-import {getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement, createImageAdress, createRandomArray} from './util.js';
+import { getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement, createImageAdress, createRandomArray } from './util.js';
 
-const AMOUNT_ADVERTISEMENTS = 10;
+const AMOUNT_ADVERTISEMENTS = 5;
 const MIN_PRICE = 10000;
 const MAX_PRICE = 100000;
 const HOUSING_TYPES = ['palace', 'flat', 'house',' bungalow', 'hotel'];
+const RUSSIAN_TYPES = ['Дворец','Квартира', 'Дом', 'Бунгало', 'Отель'];
 const MIN_COUNT_ROOMS = 1;
 const MAX_COUNT_ROOMS = 5;
 const MIN_COUNT_GUESTS = 1;
@@ -19,7 +20,7 @@ const MAX_LNG = 139.80000;
 /** Функция, генерирует объект - объявление о аренде жилья
  * @return {object} — объект - объявление о аренде жилья
  */
-function createAdvertisement () {
+function createAdvertisement() {
   const latitude = getRandomPositiveFloat(MIN_LAT, MAX_LAT, 5);
   const longitude = getRandomPositiveFloat(MIN_LNG, MAX_LNG, 5);
 
@@ -49,8 +50,12 @@ function createAdvertisement () {
 
 const advertisements = [];
 
-for (let i = 0; i < AMOUNT_ADVERTISEMENTS; i++) {
-  advertisements.push(createAdvertisement());
+function createAdvertisements() {
+  for (let i = 0; i < AMOUNT_ADVERTISEMENTS; i++) {
+    advertisements.push(createAdvertisement());
+  }
+
+  return advertisements;
 }
 
-export {advertisements};
+export { createAdvertisements, advertisements, HOUSING_TYPES, RUSSIAN_TYPES };
