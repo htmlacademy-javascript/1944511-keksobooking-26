@@ -76,10 +76,7 @@ function createRandomArray(array) {
  * @return {boolean} — true or false
  */
 function isEmptyProperty (property) {
-  if (property === undefined) {
-    return true;
-  }
-  return false;
+  return property === undefined;
 }
 
 export { getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement, createImageAdress, createRandomArray, isEmptyProperty };

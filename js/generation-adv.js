@@ -9,7 +9,6 @@ const advertisementsFragment = document.createDocumentFragment();
 advertisementsArray.forEach((advertisement) => {
   const advertisementItem = advertisementTemplate.cloneNode(true);
   const featuresList = advertisementItem.querySelector('.popup__features');
-  const featuresItems = advertisementItem.querySelectorAll('.popup__feature');
   const photosList = advertisementItem.querySelector('.popup__photos');
   const photo = advertisementItem.querySelector('.popup__photo');
   const title = advertisementItem.querySelector('.popup__title');
@@ -23,10 +22,11 @@ advertisementsArray.forEach((advertisement) => {
 
   if(!isEmptyProperty(advertisement.offer.features)) {
     const featuresArray = advertisement.offer.features;
-    featuresItems.forEach((featuresItem) => {
-      if (!featuresArray.includes(featuresItem.classList[1].slice(16))) {
-        featuresItem.remove();
-      }
+    featuresList.innerHTML = '';
+    featuresArray.forEach((featuresItem) => {
+      const li  = document.createElement('li');
+      li.classList.add('popup__feature', `popup__feature--${featuresItem}`);
+      featuresList.appendChild(li);
     });
   } else {
     featuresList.style.display = 'none';
