@@ -1,7 +1,6 @@
 import { createAdvertisements, HOUSING_TYPES, RUSSIAN_TYPES } from './data.js';
 import { isEmptyProperty } from './util.js';
 
-const canvas = document.querySelector('#map-canvas');
 const advertisementsArray = createAdvertisements();
 const advertisementTemplate = document.querySelector('#card').content.querySelector('.popup');
 const advertisementsFragment = document.createDocumentFragment();
@@ -94,5 +93,3 @@ advertisementsArray.forEach((advertisement) => {
 
   advertisementsFragment.appendChild(advertisementItem);
 });
-
-canvas.appendChild(advertisementsFragment);
