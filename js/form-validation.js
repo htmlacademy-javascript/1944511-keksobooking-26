@@ -31,6 +31,7 @@ const pristine = new Pristine(adForm, {
   errorTextClass: 'form-error' // Класс для элемента с текстом ошибки
 });
 
+//Валидация заголовка
 function validateTitle (value) {
   return value.length >= DATA_VALIDATION.title.minLength && value.length <= DATA_VALIDATION.title.maxLength;
 }
@@ -41,16 +42,18 @@ function getErrorTitleMessage (item) {
 
 pristine.addValidator(title, validateTitle, getErrorTitleMessage (DATA_VALIDATION.title));
 
+//Валидация цены
 function validatePrice (value) {
-  return isNumeric(value) && value <= 100000;
+  return isNumeric(value) && value <= 100000 && value >= 0;
 }
 
 function getErrorPriceMessage (item) {
-  return `Введите число до ${item.maxPrice}`;
+  return `Введите число от 0 до ${item.maxPrice}`;
 }
 
 pristine.addValidator(price, validatePrice, getErrorPriceMessage(DATA_VALIDATION.price));
 
+//Валидация количества комнат и гостей
 function validateRoomsAmount () {
   return DATA_VALIDATION.rooms[roomsField.value].includes(capacityField.value);
 }
