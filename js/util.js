@@ -79,4 +79,9 @@ function isEmptyProperty (property) {
   return property === undefined;
 }
 
-export { getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement, createImageAdress, createRandomArray, isEmptyProperty };
+/**  Функция, проверяет на число*/
+function isNumeric(num) {
+  return !isNaN(parseFloat(num)) && isFinite(num);
+}
+
+export { getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement, createImageAdress, createRandomArray, isEmptyProperty, isNumeric };
