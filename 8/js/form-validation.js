@@ -6,13 +6,13 @@ const DATA_VALIDATION = {
     maxLength: 100
   },
   price: {
-    maxPrice: '100000',
+    maxPrice: 100000,
     minPrice: {
-      bungalow: '0',
-      hotel: '3000',
-      flat: '1000',
-      house: '5000',
-      palace: '10000'
+      bungalow: 0,
+      hotel: 3000,
+      flat: 1000,
+      house: 5000,
+      palace: 10000
     }
   },
   rooms: {
@@ -32,7 +32,6 @@ const timeInField = document.querySelector('#timein');
 const timeOutField = document.querySelector('#timeout');
 let typeFieldValue = 'flat';
 
-
 const pristine = new Pristine(adForm, {
   classTo: 'ad-form__element', // Элемент, на который будут добавляться классы
   errorTextParent: 'ad-form__element', // Элемент, куда будет выводиться текст с ошибкой
@@ -49,7 +48,7 @@ function getErrorTitleMessage () {
   return `От ${DATA_VALIDATION.title.minLength} до ${DATA_VALIDATION.title.maxLength} символов`;
 }
 
-pristine.addValidator(titleField, validateTitle, getErrorTitleMessage ());
+pristine.addValidator(titleField, validateTitle, getErrorTitleMessage);
 
 //Валидация цены
 typeField.addEventListener('change', () => {
@@ -57,11 +56,11 @@ typeField.addEventListener('change', () => {
   typeFieldValue = typeField.value;
   priceField.min = minPriceCurrent;
   priceField.placeholder = minPriceCurrent;
-  priceField.value = '';
+  pristine.validate(priceField);
 });
 
 function validatePrice (value) {
-  return isNumeric(value) && +value <= +DATA_VALIDATION.price.maxPrice && +value >= +DATA_VALIDATION.price.minPrice[typeFieldValue];
+  return isNumeric(value) && Number(value) <= DATA_VALIDATION.price.maxPrice && Number(value) >= DATA_VALIDATION.price.minPrice[typeFieldValue];
 }
 
 function getErrorPriceMessage () {
@@ -81,15 +80,15 @@ function getErrorRoomsMessage () {
 
 pristine.addValidator(roomsField, validateRoomsAmount, getErrorRoomsMessage);
 
+capacityField.addEventListener('change', () => {
+  pristine.validate(roomsField);
+});
+
 //Синхронизация времени заезда-выезда
 function synchronizeTime (selectOne, selectTwo) {
   const options = selectTwo.children;
   for (const option of options) {
-    if(option.value === selectOne.value) {
-      option.selected = true;
-    } else {
-      option.selected = false;
-    }
+    option.selected = (option.value === selectOne.value);
   }
 }
 
