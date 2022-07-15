@@ -56,6 +56,7 @@ typeField.addEventListener('change', () => {
   typeFieldValue = typeField.value;
   priceField.min = minPriceCurrent;
   priceField.placeholder = minPriceCurrent;
+  priceField.value = '';
   pristine.validate(priceField);
 });
 
