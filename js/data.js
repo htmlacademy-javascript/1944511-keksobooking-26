@@ -1,6 +1,6 @@
 import { getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement, createImageAdress, createRandomArray } from './util.js';
 
-const AMOUNT_ADVERTISEMENTS = 5;
+const AMOUNT_ADVERTISEMENTS = 10;
 const MIN_PRICE = 10000;
 const MAX_PRICE = 100000;
 const HOUSING_TYPES = ['palace', 'flat', 'house',' bungalow', 'hotel'];
@@ -16,6 +16,7 @@ const MIN_LAT = 35.65000;
 const MAX_LAT = 35.70000;
 const MIN_LNG = 139.70000;
 const MAX_LNG = 139.80000;
+
 
 /** Функция, генерирует объект - объявление о аренде жилья
  * @return {object} — объект - объявление о аренде жилья
@@ -50,11 +51,13 @@ function createAdvertisement() {
 
 const advertisements = [];
 
+/** Функция, создает массив объявлений об аренде жилья
+ * @return {array} — массив объявлений об аренде жилья
+ */
 function createAdvertisements() {
   for (let i = 0; i < AMOUNT_ADVERTISEMENTS; i++) {
     advertisements.push(createAdvertisement());
   }
-
   return advertisements;
 }
 
