@@ -30,6 +30,7 @@ const capacityField = document.querySelector('#capacity');
 const typeField = document.querySelector('#type');
 const timeInField = document.querySelector('#timein');
 const timeOutField = document.querySelector('#timeout');
+const sliderElement = document.querySelector('.ad-form__slider');
 let typeFieldValue = 'flat';
 
 const pristine = new Pristine(adForm, {
@@ -56,6 +57,14 @@ typeField.addEventListener('change', () => {
   typeFieldValue = typeField.value;
   priceField.min = minPriceCurrent;
   priceField.placeholder = minPriceCurrent;
+  sliderElement.noUiSlider.updateOptions({
+    range: {
+      min: DATA_VALIDATION.price.minPrice[typeFieldValue],
+      max: DATA_VALIDATION.price.maxPrice,
+    },
+    start: 10000,
+    step: 1,
+  });
   priceField.value = '';
   pristine.validate(priceField);
 });
@@ -101,5 +110,32 @@ adForm.addEventListener('submit', (evt) => {
   if (pristine.validate()) {
     adForm.submit();
   }
+});
+
+noUiSlider.create(sliderElement, {
+  range: {
+    min: DATA_VALIDATION.price.minPrice[typeFieldValue],
+    max: DATA_VALIDATION.price.maxPrice,
+  },
+  start: 10000,
+  step: 1,
+  connect: 'lower',
+  format: {
+    to: function (value) {
+      return value.toFixed(0);
+    },
+    from: function (value) {
+      return parseFloat(value);
+    },
+  },
+});
+
+sliderElement.noUiSlider.on('update', () => {
+  priceField.value = sliderElement.noUiSlider.get();
+  pristine.validate(priceField);
+});
+
+priceField.addEventListener('change', (evt) => {
+  sliderElement.noUiSlider.set(evt.target.value);
 });
 

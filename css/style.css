@@ -1035,3 +1035,14 @@ fieldset {
 .hidden {
   display: none;
 }
+
+/***** Добавленные мной стили *****/
+
+/* Ошибка валидации */
+.form-error {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 0.85em;
+  color: #c00;
+}
