@@ -3,6 +3,13 @@ import { advertisementsArray, createCardElement } from './generation-adv.js';
 
 const DEFAULT_LAT = 35.67500;
 const DEFAULT_LNG = 139.75000;
+const DEFAULT_SCALE = 14;
+const MAIN_ICON_LENGTH = 52;
+const MAIN_ICON_WIDTH = 52;
+const MAIN_ICON_CENTER = 26;
+const ICON_LENGTH = 40;
+const ICON_WIDTH = 40;
+const ICON_CENTER = 20;
 const addressField = document.querySelector('#address');
 const addressFieldDefaultValue = `${DEFAULT_LAT}, ${DEFAULT_LNG}`;
 
@@ -16,18 +23,18 @@ const map = L.map('map-canvas')
   .setView({
     lat: DEFAULT_LAT,
     lng: DEFAULT_LNG,
-  }, 14);
+  }, DEFAULT_SCALE);
 
 const mainPinIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconUrl: './img/main-pin.svg',
+  iconSize: [MAIN_ICON_WIDTH, MAIN_ICON_LENGTH],
+  iconAnchor: [MAIN_ICON_CENTER, MAIN_ICON_LENGTH],
 });
 
 const pinIcon = L.icon({
-  iconUrl: '../img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconUrl: './img/pin.svg',
+  iconSize: [ICON_WIDTH, ICON_LENGTH],
+  iconAnchor: [ICON_CENTER, ICON_LENGTH],
 });
 
 L.tileLayer(
