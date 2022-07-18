@@ -3,9 +3,8 @@ import { isEmptyProperty } from './util.js';
 
 const advertisementsArray = createAdvertisements();
 const advertisementTemplate = document.querySelector('#card').content.querySelector('.popup');
-const advertisementsFragment = document.createDocumentFragment();
 
-advertisementsArray.forEach((advertisement) => {
+function createCardElement (advertisement) {
   const advertisementItem = advertisementTemplate.cloneNode(true);
   const featuresList = advertisementItem.querySelector('.popup__features');
   const photosList = advertisementItem.querySelector('.popup__photos');
@@ -91,5 +90,7 @@ advertisementsArray.forEach((advertisement) => {
     avatar.style.display = 'none';
   }
 
-  advertisementsFragment.appendChild(advertisementItem);
-});
+  return advertisementItem;
+}
+
+export { advertisementsArray, createCardElement };
