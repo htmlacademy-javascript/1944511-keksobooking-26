@@ -22,6 +22,7 @@ const DATA_VALIDATION = {
     '100': ['0']
   }
 };
+const DEFAULT_STEP_RANGE = 1;
 const adForm = document.querySelector('.ad-form');
 const titleField = document.querySelector('#title');
 const priceField = document.querySelector('#price');
@@ -62,8 +63,8 @@ typeField.addEventListener('change', () => {
       min: DATA_VALIDATION.price.minPrice[typeFieldValue],
       max: DATA_VALIDATION.price.maxPrice,
     },
-    start: 10000,
-    step: 1,
+    start: DATA_VALIDATION.price.minPrice[typeFieldValue],
+    step: DEFAULT_STEP_RANGE,
   });
   priceField.value = '';
   pristine.validate(priceField);
@@ -117,8 +118,8 @@ noUiSlider.create(sliderElement, {
     min: DATA_VALIDATION.price.minPrice[typeFieldValue],
     max: DATA_VALIDATION.price.maxPrice,
   },
-  start: 10000,
-  step: 1,
+  start: DATA_VALIDATION.price.minPrice[typeFieldValue],
+  step: DEFAULT_STEP_RANGE,
   connect: 'lower',
   format: {
     to: function (value) {
