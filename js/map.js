@@ -1,5 +1,5 @@
 import { changePageMode } from './form-mode.js';
-import { advertisementsArray, createCardElement } from './generation-adv.js';
+import { createCardElement } from './generation-adv.js';
 
 const DEFAULT_LAT = 35.67500;
 const DEFAULT_LNG = 139.75000;
@@ -62,15 +62,47 @@ mainMarker.on('moveend', (evt) => {
   addressField.value = `${lat}, ${lng}`;
 });
 
-advertisementsArray.forEach((advertisement) => {
-  const marker = L.marker(
-    {
-      lat: advertisement.location.lat,
-      lng: advertisement.location.lng
-    },
-    {
-      icon: pinIcon,
-    },
-  );
-  marker.addTo(map).bindPopup(createCardElement(advertisement));
-});
+// advertisementsArray.forEach((advertisement) => {
+//   const marker = L.marker(
+//     {
+//       lat: advertisement.location.lat,
+//       lng: advertisement.location.lng
+//     },
+//     {
+//       icon: pinIcon,
+//     },
+//   );
+//   marker.addTo(map).bindPopup(createCardElement(advertisement));
+// });
+
+// advertisementsArray.forEach((advertisement) => {
+//   const marker = L.marker(
+//     {
+//       lat: advertisement.location.lat,
+//       lng: advertisement.location.lng
+//     },
+//     {
+//       icon: pinIcon,
+//     },
+//   );
+//   marker.addTo(map).bindPopup(createCardElement(advertisement));
+// });
+
+function renderAdvertisements (advertisements) {
+  advertisements.forEach((advertisement) => {
+    const marker = L.marker(
+      {
+        lat: advertisement.location.lat,
+        lng: advertisement.location.lng
+      },
+      {
+        icon: pinIcon,
+      },
+    );
+    marker.addTo(map).bindPopup(createCardElement(advertisement));
+  });
+}
+
+export { renderAdvertisements };
+
+

@@ -1,4 +1,6 @@
-import { isNumeric } from './util.js';
+import { sendData } from './api.js';
+import { isNumeric, showAlert } from './util.js';
+
 
 const DATA_VALIDATION = {
   title: {
@@ -106,13 +108,6 @@ function synchronizeTime (selectOne, selectTwo) {
 timeInField.addEventListener('change', synchronizeTime.bind(null, timeInField, timeOutField));
 timeOutField.addEventListener('change', synchronizeTime.bind(null, timeOutField, timeInField));
 
-adForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  if (pristine.validate()) {
-    adForm.submit();
-  }
-});
-
 noUiSlider.create(sliderElement, {
   range: {
     min: DATA_VALIDATION.price.minPrice[typeFieldValue],
@@ -140,3 +135,15 @@ priceField.addEventListener('change', (evt) => {
   sliderElement.noUiSlider.set(evt.target.value);
 });
 
+function submitUserForm (onSuccess) {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (isValid) {
+      const formData = new FormData(evt.target);
+      sendData(onSuccess, showAlert, formData);
+    }
+  });
+}
+
+export { submitUserForm };
