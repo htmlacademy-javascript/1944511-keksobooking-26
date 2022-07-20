@@ -1,6 +1,6 @@
 import { sendData } from './api.js';
-import { isNumeric, showAlert } from './util.js';
-
+import { blockSubmitButton, unblockSubmitButton } from './form-api.js';
+import { isNumeric } from './util.js';
 
 const DATA_VALIDATION = {
   title: {
@@ -135,15 +135,17 @@ priceField.addEventListener('change', (evt) => {
   sliderElement.noUiSlider.set(evt.target.value);
 });
 
-function submitUserForm (onSuccess) {
+function submitUserForm (onSuccess, onFail) {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
     if (isValid) {
       const formData = new FormData(evt.target);
-      sendData(onSuccess, showAlert, formData);
+      blockSubmitButton();
+      sendData(onSuccess, onFail, formData);
+      unblockSubmitButton();
     }
   });
 }
 
-export { submitUserForm };
+export { submitUserForm, pristine, typeField };
