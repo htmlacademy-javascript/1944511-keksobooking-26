@@ -41,10 +41,12 @@ function sendData (onSuccess, onFail, body) {
         unblockSubmitButton();
       } else {
         onFail();
+        unblockSubmitButton();
       }
     })
     .catch(() => {
       onFail();
+      unblockSubmitButton();
     });
 }
 export { getData, sendData};
