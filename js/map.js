@@ -1,7 +1,7 @@
 import { changePageMode } from './form-mode.js';
 import { createCardElement } from './generation-adv.js';
 import { getData } from './api.js';
-import { showAlert } from './form-api.js';
+import { showAlert } from './util.js';
 
 const DEFAULT_LAT = 35.67500;
 const DEFAULT_LNG = 139.75000;
@@ -80,4 +80,17 @@ function renderAdvertisements (advertisements) {
   });
 }
 
-export { map, mainMarker, DEFAULT_LAT, DEFAULT_LNG, DEFAULT_SCALE };
+/** Возвращение карты в исходное состояние */
+function resetMap () {
+  map.closePopup();
+  map.setView({
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
+  }, DEFAULT_SCALE);
+  mainMarker.setLatLng({
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
+  });
+}
+
+export { resetMap, addressFieldDefaultValue };

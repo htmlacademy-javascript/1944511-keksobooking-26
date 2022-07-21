@@ -1,7 +1,7 @@
-import { createAdvertisements, HOUSING_TYPES, RUSSIAN_TYPES } from './data.js';
 import { isEmptyProperty } from './util.js';
 
-const advertisementsArray = createAdvertisements();
+const HOUSING_TYPES = ['palace', 'flat', 'house',' bungalow', 'hotel'];
+const RUSSIAN_TYPES = ['Дворец','Квартира', 'Дом', 'Бунгало', 'Отель'];
 const advertisementTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 function createCardElement (advertisement) {
@@ -93,4 +93,4 @@ function createCardElement (advertisement) {
   return advertisementItem;
 }
 
-export { advertisementsArray, createCardElement };
+export { createCardElement };

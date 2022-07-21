@@ -1,3 +1,5 @@
+import { unblockSubmitButton } from './form-api.js';
+
 const URL_GETTING_DATE = 'https://26.javascript.pages.academy/keksobooking/data';
 const URL_SENDING_DATE = 'https://26.javascript.pages.academy/keksobooking';
 
@@ -36,6 +38,7 @@ function sendData (onSuccess, onFail, body) {
     .then((response) => {
       if (response.ok) {
         onSuccess();
+        unblockSubmitButton();
       } else {
         onFail();
       }
@@ -44,5 +47,4 @@ function sendData (onSuccess, onFail, body) {
       onFail();
     });
 }
-
 export { getData, sendData};
