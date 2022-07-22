@@ -1,5 +1,7 @@
 import { changePageMode } from './form-mode.js';
-import { advertisementsArray, createCardElement } from './generation-adv.js';
+import { createCardElement } from './generation-adv.js';
+import { getData } from './api.js';
+import { showAlert } from './util.js';
 
 const DEFAULT_LAT = 35.67500;
 const DEFAULT_LNG = 139.75000;
@@ -19,6 +21,7 @@ addressField.value = addressFieldDefaultValue;
 const map = L.map('map-canvas')
   .on('load', () => {
     changePageMode(true);
+    getData(renderAdvertisements, showAlert);
   })
   .setView({
     lat: DEFAULT_LAT,
@@ -62,15 +65,32 @@ mainMarker.on('moveend', (evt) => {
   addressField.value = `${lat}, ${lng}`;
 });
 
-advertisementsArray.forEach((advertisement) => {
-  const marker = L.marker(
-    {
-      lat: advertisement.location.lat,
-      lng: advertisement.location.lng
-    },
-    {
-      icon: pinIcon,
-    },
-  );
-  marker.addTo(map).bindPopup(createCardElement(advertisement));
-});
+function renderAdvertisements (advertisements) {
+  advertisements.forEach((advertisement) => {
+    const marker = L.marker(
+      {
+        lat: advertisement.location.lat,
+        lng: advertisement.location.lng
+      },
+      {
+        icon: pinIcon,
+      },
+    );
+    marker.addTo(map).bindPopup(createCardElement(advertisement));
+  });
+}
+
+/** Возвращение карты в исходное состояние */
+function resetMap () {
+  map.closePopup();
+  map.setView({
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
+  }, DEFAULT_SCALE);
+  mainMarker.setLatLng({
+    lat: DEFAULT_LAT,
+    lng: DEFAULT_LNG,
+  });
+}
+
+export { resetMap, addressFieldDefaultValue };
