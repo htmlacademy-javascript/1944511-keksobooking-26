@@ -1,5 +1,5 @@
 import { sendData } from './api.js';
-import { blockSubmitButton, unblockSubmitButton } from './form-api.js';
+import { blockSubmitButton } from './form-api.js';
 import { isNumeric } from './util.js';
 
 const DATA_VALIDATION = {
@@ -143,7 +143,6 @@ function submitUserForm (onSuccess, onFail) {
       const formData = new FormData(evt.target);
       blockSubmitButton();
       sendData(onSuccess, onFail, formData);
-      unblockSubmitButton();
     }
   });
 }
