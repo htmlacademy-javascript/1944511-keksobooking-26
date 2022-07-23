@@ -1,3 +1,5 @@
+import { isData } from './api.js';
+
 const mapFiltersForm = document.querySelector('.map__filters');
 const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.children;
@@ -21,9 +23,11 @@ function changePageMode (isActive) {
     for (const adFormElement of adFormElements) {
       adFormElement.disabled = false;
     }
-    mapFiltersForm.classList.remove('map__filters--disabled');
-    for (const mapFiltersElement of mapFiltersElements) {
-      mapFiltersElement.disabled = false;
+    if (isData) {
+      mapFiltersForm.classList.remove('map__filters--disabled');
+      for (const mapFiltersElement of mapFiltersElements) {
+        mapFiltersElement.disabled = false;
+      }
     }
   }
 }

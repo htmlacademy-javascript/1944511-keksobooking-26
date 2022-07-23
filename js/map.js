@@ -12,6 +12,7 @@ const MAIN_ICON_CENTER = 26;
 const ICON_LENGTH = 40;
 const ICON_WIDTH = 40;
 const ICON_CENTER = 20;
+const AMOUNT_LABEL = 10;
 const addressField = document.querySelector('#address');
 const addressFieldDefaultValue = `${DEFAULT_LAT}, ${DEFAULT_LNG}`;
 
@@ -65,8 +66,15 @@ mainMarker.on('moveend', (evt) => {
   addressField.value = `${lat}, ${lng}`;
 });
 
+const markerGroup = L.layerGroup().addTo(map);
+
+function clearLayers () {
+  markerGroup.clearLayers();
+}
+
 function renderAdvertisements (advertisements) {
-  advertisements.forEach((advertisement) => {
+  console.log(advertisements);
+  advertisements.slice(0, AMOUNT_LABEL).forEach((advertisement) => {
     const marker = L.marker(
       {
         lat: advertisement.location.lat,
@@ -76,7 +84,7 @@ function renderAdvertisements (advertisements) {
         icon: pinIcon,
       },
     );
-    marker.addTo(map).bindPopup(createCardElement(advertisement));
+    marker.addTo(markerGroup).bindPopup(createCardElement(advertisement));
   });
 }
 
@@ -93,4 +101,4 @@ function resetMap () {
   });
 }
 
-export { resetMap, addressFieldDefaultValue };
+export { resetMap, addressFieldDefaultValue, renderAdvertisements, clearLayers };
