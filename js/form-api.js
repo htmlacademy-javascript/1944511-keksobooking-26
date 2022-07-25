@@ -1,6 +1,7 @@
 import { pristine, typeField } from './form-validation.js';
 import { resetMap, addressFieldDefaultValue } from './map.js';
 import { isEscapeKey } from './util.js';
+import { clearImgPreview } from './avatar.js';
 
 
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
@@ -34,6 +35,7 @@ function resetForm () {
   typeField.dispatchEvent(event);//генерация события в поле типа жилья, чтобы сбросить слайдер
   pristine.reset();
   addressField.value = addressFieldDefaultValue;
+  clearImgPreview();
 }
 
 /** Показать сообщение об успешной отправке или ошибке
