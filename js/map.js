@@ -5,7 +5,7 @@ import { showAlert } from './util.js';
 
 const DEFAULT_LAT = 35.67500;
 const DEFAULT_LNG = 139.75000;
-const DEFAULT_SCALE = 14;
+const DEFAULT_SCALE = 13;
 const MAIN_ICON_LENGTH = 52;
 const MAIN_ICON_WIDTH = 52;
 const MAIN_ICON_CENTER = 26;
@@ -70,10 +70,10 @@ const markerGroup = L.layerGroup().addTo(map);
 
 function clearLayers () {
   markerGroup.clearLayers();
+  hideBaloons();
 }
 
 function renderAdvertisements (advertisements) {
-  console.log(advertisements);
   advertisements.slice(0, AMOUNT_LABEL).forEach((advertisement) => {
     const marker = L.marker(
       {
@@ -88,9 +88,13 @@ function renderAdvertisements (advertisements) {
   });
 }
 
+function hideBaloons () {
+  map.closePopup();
+}
+
 /** Возвращение карты в исходное состояние */
 function resetMap () {
-  map.closePopup();
+  hideBaloons();
   map.setView({
     lat: DEFAULT_LAT,
     lng: DEFAULT_LNG,

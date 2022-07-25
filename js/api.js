@@ -4,7 +4,7 @@ import { onFilterChange } from './filter.js';
 
 const URL_GETTING_DATE = 'https://26.javascript.pages.academy/keksobooking/data';
 const URL_SENDING_DATE = 'https://26.javascript.pages.academy/keksobooking';
-let isData = false;
+let isDataLabels = false;
 
 /**  Функция, получает данные с сервера. В случае успеха отрисовывает метки на карте, при ошибке выдает сообщение
  * @param {function} onSuccess функция отрисовки меток
@@ -21,7 +21,7 @@ function getData (onSuccess, onFail) {
     })
     .then((advertisements) => {
       onSuccess(advertisements);
-      isData = true;
+      isDataLabels = true;
       changePageMode(true);
       onFilterChange (advertisements);
     })
@@ -55,4 +55,4 @@ function sendData (onSuccess, onFail, body) {
       unblockSubmitButton();
     });
 }
-export { getData, sendData, isData};
+export { getData, sendData, isDataLabels };
