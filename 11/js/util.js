@@ -40,7 +40,7 @@ function showAlert (message) {
   }, ALERT_SHOW_TIME);
 }
 
-function debounce (callback, timeoutDelay = 500) {
+function debounce (callback, timeoutDelay = RERENDER_DELAY) {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);

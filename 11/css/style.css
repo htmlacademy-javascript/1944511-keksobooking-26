@@ -1046,3 +1046,18 @@ fieldset {
   font-size: 0.85em;
   color: #c00;
 }
+
+.ad-form__photo-container {
+  flex-wrap: nowrap;
+}
+
+.ad-form__photo {
+  max-height: 230px;
+  max-width: 220px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  width: auto;
+  height: auto;
+  overflow: auto;
+}
