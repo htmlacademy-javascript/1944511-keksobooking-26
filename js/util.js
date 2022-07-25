@@ -1,4 +1,5 @@
 const ALERT_SHOW_TIME = 5000;
+const RERENDER_DELAY = 500;
 
 /**  Функция, проверяет пустое ли свойство объекта
  * @param property — свойство объекта
@@ -39,4 +40,12 @@ function showAlert (message) {
   }, ALERT_SHOW_TIME);
 }
 
-export { isEmptyProperty, isNumeric, isEscapeKey, showAlert };
+function debounce (callback, timeoutDelay = RERENDER_DELAY) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export { isEmptyProperty, isNumeric, isEscapeKey, showAlert, debounce, RERENDER_DELAY };

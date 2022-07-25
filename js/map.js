@@ -5,13 +5,14 @@ import { showAlert } from './util.js';
 
 const DEFAULT_LAT = 35.67500;
 const DEFAULT_LNG = 139.75000;
-const DEFAULT_SCALE = 14;
+const DEFAULT_SCALE = 13;
 const MAIN_ICON_LENGTH = 52;
 const MAIN_ICON_WIDTH = 52;
 const MAIN_ICON_CENTER = 26;
 const ICON_LENGTH = 40;
 const ICON_WIDTH = 40;
 const ICON_CENTER = 20;
+const AMOUNT_LABEL = 10;
 const addressField = document.querySelector('#address');
 const addressFieldDefaultValue = `${DEFAULT_LAT}, ${DEFAULT_LNG}`;
 
@@ -65,8 +66,15 @@ mainMarker.on('moveend', (evt) => {
   addressField.value = `${lat}, ${lng}`;
 });
 
+const markerGroup = L.layerGroup().addTo(map);
+
+function clearLayers () {
+  markerGroup.clearLayers();
+  hideBaloons();
+}
+
 function renderAdvertisements (advertisements) {
-  advertisements.forEach((advertisement) => {
+  advertisements.slice(0, AMOUNT_LABEL).forEach((advertisement) => {
     const marker = L.marker(
       {
         lat: advertisement.location.lat,
@@ -76,13 +84,17 @@ function renderAdvertisements (advertisements) {
         icon: pinIcon,
       },
     );
-    marker.addTo(map).bindPopup(createCardElement(advertisement));
+    marker.addTo(markerGroup).bindPopup(createCardElement(advertisement));
   });
+}
+
+function hideBaloons () {
+  map.closePopup();
 }
 
 /** Возвращение карты в исходное состояние */
 function resetMap () {
-  map.closePopup();
+  hideBaloons();
   map.setView({
     lat: DEFAULT_LAT,
     lng: DEFAULT_LNG,
@@ -93,4 +105,4 @@ function resetMap () {
   });
 }
 
-export { resetMap, addressFieldDefaultValue };
+export { resetMap, addressFieldDefaultValue, renderAdvertisements, clearLayers };

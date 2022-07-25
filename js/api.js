@@ -1,7 +1,10 @@
 import { unblockSubmitButton } from './form-api.js';
+import { changePageMode } from './form-mode.js';
+import { onFilterChange } from './filter.js';
 
 const URL_GETTING_DATE = 'https://26.javascript.pages.academy/keksobooking/data';
 const URL_SENDING_DATE = 'https://26.javascript.pages.academy/keksobooking';
+let isDataLabels = false;
 
 /**  Функция, получает данные с сервера. В случае успеха отрисовывает метки на карте, при ошибке выдает сообщение
  * @param {function} onSuccess функция отрисовки меток
@@ -18,6 +21,9 @@ function getData (onSuccess, onFail) {
     })
     .then((advertisements) => {
       onSuccess(advertisements);
+      isDataLabels = true;
+      changePageMode(true);
+      onFilterChange (advertisements);
     })
     .catch((err) => {
       onFail(`Ошибка получения данных ${err.message}`);});
@@ -49,4 +55,4 @@ function sendData (onSuccess, onFail, body) {
       unblockSubmitButton();
     });
 }
-export { getData, sendData};
+export { getData, sendData, isDataLabels };
