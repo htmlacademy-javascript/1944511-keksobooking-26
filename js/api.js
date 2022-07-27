@@ -10,7 +10,7 @@ let isDataLabels = false;
  * @param {function} onSuccess функция отрисовки меток
  * @param {function} onFail функция сообщения об ошибке
  */
-function getData (onSuccess, onFail) {
+const getData = (onSuccess, onFail) => {
   fetch(URL_GETTING_DATE)
     .then((response) => {
       if (response.ok) {
@@ -27,14 +27,14 @@ function getData (onSuccess, onFail) {
     })
     .catch((err) => {
       onFail(`Ошибка получения данных ${err.message}`);});
-}
+};
 
 /**  Функция, отправляет данные на сервер
  * @param {function} onSuccess функция выполняется при успешной отправке данных
  * @param {function} onFail функция сообщения об ошибке
  * @param {object} body formData
  */
-function sendData (onSuccess, onFail, body) {
+const sendData = (onSuccess, onFail, body) => {
   fetch(URL_SENDING_DATE,
     {
       method: 'POST',
@@ -54,5 +54,6 @@ function sendData (onSuccess, onFail, body) {
       onFail();
       unblockSubmitButton();
     });
-}
+};
+
 export { getData, sendData, isDataLabels };

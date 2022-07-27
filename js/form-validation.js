@@ -26,14 +26,14 @@ const DATA_VALIDATION = {
 };
 const DEFAULT_STEP_RANGE = 1;
 const adForm = document.querySelector('.ad-form');
-const titleField = document.querySelector('#title');
-const priceField = document.querySelector('#price');
-const roomsField = document.querySelector('#room_number');
-const capacityField = document.querySelector('#capacity');
-const typeField = document.querySelector('#type');
-const timeInField = document.querySelector('#timein');
-const timeOutField = document.querySelector('#timeout');
-const sliderElement = document.querySelector('.ad-form__slider');
+const title = document.querySelector('#title');
+const price = document.querySelector('#price');
+const rooms = document.querySelector('#room_number');
+const capacity = document.querySelector('#capacity');
+const type = document.querySelector('#type');
+const timeIn = document.querySelector('#timein');
+const timeOut = document.querySelector('#timeout');
+const slider = document.querySelector('.ad-form__slider');
 let typeFieldValue = 'flat';
 
 const pristine = new Pristine(adForm, {
@@ -44,23 +44,19 @@ const pristine = new Pristine(adForm, {
 });
 
 //Валидация заголовка
-function validateTitle (value) {
-  return value.length >= DATA_VALIDATION.title.minLength && value.length <= DATA_VALIDATION.title.maxLength;
-}
+const validateTitle = (value) => value.length >= DATA_VALIDATION.title.minLength && value.length <= DATA_VALIDATION.title.maxLength;
 
-function getErrorTitleMessage () {
-  return `От ${DATA_VALIDATION.title.minLength} до ${DATA_VALIDATION.title.maxLength} символов`;
-}
+const getErrorTitleMessage = () => `От ${DATA_VALIDATION.title.minLength} до ${DATA_VALIDATION.title.maxLength} символов`;
 
-pristine.addValidator(titleField, validateTitle, getErrorTitleMessage);
+pristine.addValidator(title, validateTitle, getErrorTitleMessage);
 
 //Валидация цены
-typeField.addEventListener('change', () => {
-  const minPriceCurrent = DATA_VALIDATION.price.minPrice[typeField.value];
-  typeFieldValue = typeField.value;
-  priceField.min = minPriceCurrent;
-  priceField.placeholder = minPriceCurrent;
-  sliderElement.noUiSlider.updateOptions({
+type.addEventListener('change', () => {
+  const minPriceCurrent = DATA_VALIDATION.price.minPrice[type.value];
+  typeFieldValue = type.value;
+  price.min = minPriceCurrent;
+  price.placeholder = minPriceCurrent;
+  slider.noUiSlider.updateOptions({
     range: {
       min: DATA_VALIDATION.price.minPrice[typeFieldValue],
       max: DATA_VALIDATION.price.maxPrice,
@@ -68,33 +64,25 @@ typeField.addEventListener('change', () => {
     start: DATA_VALIDATION.price.minPrice[typeFieldValue],
     step: DEFAULT_STEP_RANGE,
   });
-  priceField.value = '';
-  pristine.validate(priceField);
+  price.value = '';
+  pristine.validate(price);
 });
 
-function validatePrice (value) {
-  return isNumeric(value) && Number(value) <= DATA_VALIDATION.price.maxPrice && Number(value) >= DATA_VALIDATION.price.minPrice[typeFieldValue];
-}
+const validatePrice = (value) => isNumeric(value) && Number(value) <= DATA_VALIDATION.price.maxPrice && Number(value) >= DATA_VALIDATION.price.minPrice[typeFieldValue];
 
-function getErrorPriceMessage () {
-  return `Введите число от ${DATA_VALIDATION.price.minPrice[typeFieldValue]} до ${DATA_VALIDATION.price.maxPrice}`;
-}
+const getErrorPriceMessage = () => `Введите число от ${DATA_VALIDATION.price.minPrice[typeFieldValue]} до ${DATA_VALIDATION.price.maxPrice}`;
 
-pristine.addValidator(priceField, validatePrice, getErrorPriceMessage);
+pristine.addValidator(price, validatePrice, getErrorPriceMessage);
 
 //Валидация количества комнат и гостей
-function validateRoomsAmount () {
-  return DATA_VALIDATION.rooms[roomsField.value].includes(capacityField.value);
-}
+const validateRoomsAmount = () => DATA_VALIDATION.rooms[rooms.value].includes(capacity.value);
 
-function getErrorRoomsMessage () {
-  return 'Выбор количества комнат не соответствует количеству гостей';
-}
+const getErrorRoomsMessage = () => 'Выбор количества комнат не соответствует количеству гостей';
 
-pristine.addValidator(roomsField, validateRoomsAmount, getErrorRoomsMessage);
+pristine.addValidator(rooms, validateRoomsAmount, getErrorRoomsMessage);
 
-capacityField.addEventListener('change', () => {
-  pristine.validate(roomsField);
+capacity.addEventListener('change', () => {
+  pristine.validate(rooms);
 });
 
 //Синхронизация времени заезда-выезда
@@ -105,10 +93,10 @@ function synchronizeTime (selectOne, selectTwo) {
   }
 }
 
-timeInField.addEventListener('change', synchronizeTime.bind(null, timeInField, timeOutField));
-timeOutField.addEventListener('change', synchronizeTime.bind(null, timeOutField, timeInField));
+timeIn.addEventListener('change', synchronizeTime.bind(null, timeIn, timeOut));
+timeOut.addEventListener('change', synchronizeTime.bind(null, timeOut, timeIn));
 
-noUiSlider.create(sliderElement, {
+noUiSlider.create(slider, {
   range: {
     min: DATA_VALIDATION.price.minPrice[typeFieldValue],
     max: DATA_VALIDATION.price.maxPrice,
@@ -126,16 +114,17 @@ noUiSlider.create(sliderElement, {
   },
 });
 
-sliderElement.noUiSlider.on('update', () => {
-  priceField.value = sliderElement.noUiSlider.get();
-  pristine.validate(priceField);
+slider.noUiSlider.on('update', () => {
+  price.value = slider.noUiSlider.get();
+  pristine.validate(price);
 });
 
-priceField.addEventListener('change', (evt) => {
-  sliderElement.noUiSlider.set(evt.target.value);
+price.addEventListener('change', (evt) => {
+  slider.noUiSlider.set(evt.target.value);
 });
 
-function submitUserForm (onSuccess, onFail) {
+//Отправляет форму на сервер
+const submitUserForm = (onSuccess, onFail) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
@@ -145,6 +134,6 @@ function submitUserForm (onSuccess, onFail) {
       sendData(onSuccess, onFail, formData);
     }
   });
-}
+};
 
-export { submitUserForm, pristine, typeField };
+export { submitUserForm, pristine, type };

@@ -68,11 +68,16 @@ mainMarker.on('moveend', (evt) => {
 
 const markerGroup = L.layerGroup().addTo(map);
 
-function clearLayers () {
+const hideBaloons = () => {
+  map.closePopup();
+};
+
+const clearLayers = () => {
   markerGroup.clearLayers();
   hideBaloons();
-}
+};
 
+/** Отрисовывает метки из данных с сервера(всплывает) */
 function renderAdvertisements (advertisements) {
   advertisements.slice(0, AMOUNT_LABEL).forEach((advertisement) => {
     const marker = L.marker(
@@ -88,12 +93,8 @@ function renderAdvertisements (advertisements) {
   });
 }
 
-function hideBaloons () {
-  map.closePopup();
-}
-
 /** Возвращение карты в исходное состояние */
-function resetMap () {
+const resetMap = () => {
   hideBaloons();
   map.setView({
     lat: DEFAULT_LAT,
@@ -103,6 +104,6 @@ function resetMap () {
     lat: DEFAULT_LAT,
     lng: DEFAULT_LNG,
   });
-}
+};
 
 export { resetMap, addressFieldDefaultValue, renderAdvertisements, clearLayers };

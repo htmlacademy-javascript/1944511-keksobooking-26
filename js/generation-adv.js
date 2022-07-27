@@ -4,7 +4,7 @@ const HOUSING_TYPES = ['palace', 'flat', 'house',' bungalow', 'hotel'];
 const RUSSIAN_TYPES = ['Дворец','Квартира', 'Дом', 'Бунгало', 'Отель'];
 const advertisementTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-function createCardElement (advertisement) {
+const createCardElement = (advertisement) => {
   const advertisementItem = advertisementTemplate.cloneNode(true);
   const featuresList = advertisementItem.querySelector('.popup__features');
   const photosList = advertisementItem.querySelector('.popup__photos');
@@ -91,6 +91,6 @@ function createCardElement (advertisement) {
   }
 
   return advertisementItem;
-}
+};
 
 export { createCardElement };

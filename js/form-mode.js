@@ -8,7 +8,7 @@ const mapFiltersElements = mapFiltersForm.children;
 /** Функция изменяет состояние страницы - активное и неактивное
  * @param {boolean} isActive — для неактивного состояния false, для активного true
  */
-function changePageMode (isActive) {
+const changePageMode = (isActive) => {
   if (!isActive) {
     adForm.classList.add('ad-form--disabled');
     for (const adFormElement of adFormElements) {
@@ -30,6 +30,6 @@ function changePageMode (isActive) {
       }
     }
   }
-}
+};
 
 export { changePageMode };
