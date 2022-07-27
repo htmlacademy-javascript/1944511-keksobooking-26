@@ -22,23 +22,20 @@ const PRICE_RANGE = {
 const DEFAULT_VALUE = 'any';
 const filterForm = document.querySelector('.map__filters');
 
-function checkMatchType (value, advertisement) {
-  return value === advertisement.offer.type || value === DEFAULT_VALUE;
-}
+/**  Проверка соответствия типа жилья */
+const checkMatchType = (value, advertisement) => value === advertisement.offer.type || value === DEFAULT_VALUE;
 
-function checkMatchPrice (value, advertisement) {
-  return advertisement.offer.price >= PRICE_RANGE[value].from && advertisement.offer.price <= PRICE_RANGE[value].to;
-}
+/**  Проверка соответствия цены */
+const checkMatchPrice = (value, advertisement) => advertisement.offer.price >= PRICE_RANGE[value].from && advertisement.offer.price <= PRICE_RANGE[value].to;
 
-function checkMatchRooms (value, advertisement) {
-  return Number(value) === advertisement.offer.rooms || value === DEFAULT_VALUE;
-}
+/**  Проверка соответствия количества комнат */
+const checkMatchRooms = (value, advertisement) => Number(value) === advertisement.offer.rooms || value === DEFAULT_VALUE;
 
-function checkMatchGuests (value, advertisement) {
-  return Number(value) === advertisement.offer.guests || value === DEFAULT_VALUE;
-}
+/**  Проверка соответствия количества гостей*/
+const checkMatchGuests = (value, advertisement) => Number(value) === advertisement.offer.guests || value === DEFAULT_VALUE;
 
-function checkMatchFeatures (inputs, advertisement) {
+/**  Проверка соответствия преимуществ */
+const checkMatchFeatures = (inputs, advertisement) => {
   const featuresCheckedArray = [];
   for (const input of inputs) {
     featuresCheckedArray.push(input.value);
@@ -47,9 +44,10 @@ function checkMatchFeatures (inputs, advertisement) {
     return featuresCheckedArray.every((elem) => advertisement.offer.features.includes(elem));
   }
   return false;
-}
+};
 
-function onFilterChange (advertisements) {
+/** Фильтрует объявления при изменении любого из полей фильтрации */
+const onFilterChange = (advertisements) => {
   filterForm.addEventListener('change', debounce(() => {
     const type = document.querySelector('#housing-type').value;
     const rooms = document.querySelector('#housing-rooms').value;
@@ -61,6 +59,6 @@ function onFilterChange (advertisements) {
     clearLayers();
     renderAdvertisements(filteredAdvertisements);
   }, RERENDER_DELAY));
-}
+};
 
 export { onFilterChange };
